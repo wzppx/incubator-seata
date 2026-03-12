@@ -19,6 +19,7 @@ package com.alibaba.fescar.common.util;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
 
@@ -54,7 +55,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return new SerialBlob(str.getBytes());
+        return new SerialBlob(str.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
@@ -69,7 +70,7 @@ public class StringUtils {
             return null;
         }
 
-        return new String(blob.getBytes((long) 1, (int) blob.length()));
+        return new String(blob.getBytes((long) 1, (int) blob.length()), StandardCharsets.UTF_8);
     }
 
     /**
@@ -85,6 +86,6 @@ public class StringUtils {
         while ((i = is.read()) != -1) {
             baos.write(i);
         }
-        return baos.toString();
+        return baos.toString(StandardCharsets.UTF_8.name());
     }
 }
