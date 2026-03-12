@@ -20,7 +20,7 @@ import com.alibaba.fescar.common.util.StringUtils;
 import org.junit.Test;
 
 import javax.sql.rowset.serial.SerialBlob;
-import java.io.FileNotFoundException;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -59,16 +59,13 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void testInputStream2String() {
-        try {
-            InputStream inputStream = StringUtilsTest.class.getClassLoader().getResourceAsStream("test.txt");
-            assertThat(StringUtils.inputStream2String(inputStream)).isEqualTo("abc\n"
-                    + ":\"klsdf\n"
-                    + "2ks,x:\".,-3sd˚ø≤ø¬≥");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void testInputStream2String() throws IOException {
+        InputStream inputStream = StringUtilsTest.class.getClassLoader().getResourceAsStream("test.txt");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int i = -1;
+        while ((i = inputStream.read()) != -1) {
+            baos.write(i);
         }
+        assertThat(StringUtils.inputStream2String(StringUtilsTest.class.getClassLoader().getResourceAsStream("test.txt"))).isEqualTo(baos.toString());
     }
 }
