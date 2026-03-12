@@ -85,6 +85,6 @@ public class StringUtils {
         while ((i = is.read()) != -1) {
             baos.write(i);
         }
-        return baos.toString();
+        return baos.toString("UTF-8");
     }
 }
