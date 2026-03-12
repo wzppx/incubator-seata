@@ -18,6 +18,7 @@ package com.alibaba.fescar.common.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -45,7 +46,7 @@ public class BlobUtils {
         }
 
         try {
-            return new SerialBlob(str.getBytes());
+            return new SerialBlob(str.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             throw new ShouldNeverHappenException(e);
         }
@@ -63,7 +64,7 @@ public class BlobUtils {
         }
 
         try {
-            return new String(blob.getBytes((long) 1, (int) blob.length()));
+            return new String(blob.getBytes((long) 1, (int) blob.length()), StandardCharsets.UTF_8);
         } catch (Exception e) {
             throw new ShouldNeverHappenException(e);
         }
@@ -82,7 +83,7 @@ public class BlobUtils {
             while ((i = is.read()) != -1) {
                 baos.write(i);
             }
-            return baos.toString();
+            return baos.toString(StandardCharsets.UTF_8.name());
         } catch (Exception e) {
             throw new ShouldNeverHappenException(e);
         }
