@@ -62,8 +62,10 @@ public class StringUtilsTest {
     public void testInputStream2String() {
         try {
             InputStream inputStream = StringUtilsTest.class.getClassLoader().getResourceAsStream("test.txt");
-            assertThat(StringUtils.inputStream2String(inputStream)).isEqualTo("abc\n"
-                    + ":\"klsdf\n"
+            assertThat(StringUtils.inputStream2String(inputStream)).isEqualTo("abc"
+                    + System.lineSeparator()
+                    + ":\"klsdf"
+                    + System.lineSeparator()
                     + "2ks,x:\".,-3sd˚ø≤ø¬≥");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
